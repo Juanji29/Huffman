@@ -8,6 +8,12 @@ Practica 2 Estructura de Datos, Algoritmo de Huffman, y codigos canonicos de huf
 
 ---
 
+## Link del vídeo
+
+https://youtu.be/WcU1Gn5d2_M
+
+--
+
 ## 🧩 Descripción del proyecto
 Este proyecto implementa el **algoritmo de codificación de Huffman**, una técnica de compresión sin pérdida que asigna códigos binarios más cortos a los caracteres más frecuentes.  
 El programa construye un árbol de Huffman a partir de las frecuencias de los símbolos, genera los códigos correspondientes y permite codificar texto.  
