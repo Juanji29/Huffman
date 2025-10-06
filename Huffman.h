@@ -10,7 +10,9 @@
 #include <queue>
 #include <string>
 #include <vector>
-#include "Nodo.h"
+#include "Nodo.h"// Modificación en Huffman.h
+
+
 using namespace std;
 
 // Comparador para priority_queue (min-heap)
@@ -46,17 +48,47 @@ public:
         return pq.top(); // raíz del árbol
     }
 
-    // Imprimir códigos Huffman recorriendo el árbol
-    static void imprimirCodigos(Nodo* raiz, string codigo = "") {
+    //Obtener los códigos de Huffman desde el árbol
+    static void obtenerCodigos(Nodo* raiz, string codigo, vector<pair<char, string>> &codigos) {
         if (!raiz) return;
 
-        // Es hoja si tiene un caracter válido
         if (raiz->caracter != '\0') {
-            cout << raiz->caracter << " -> " << codigo << endl;
+            codigos.push_back({raiz->caracter, codigo});
         }
 
-        imprimirCodigos(raiz->izquierda, codigo + "0");
-        imprimirCodigos(raiz->derecha, codigo + "1");
+        obtenerCodigos(raiz->izquierda, codigo + "0", codigos);
+        obtenerCodigos(raiz->derecha, codigo + "1", codigos);
+    }
+
+    //Dibujar Arbol
+
+    static void dibujarArbol(Nodo* nodo, const std::string& prefijo = "", bool esDerecha = false, bool esRaiz = true) {
+        if (!nodo) return;
+        // Dibuja primero la derecha (1)
+        dibujarArbol(nodo->derecha, prefijo + "        ", true, false);
+
+        std::cout << prefijo;
+        if (!esRaiz) {
+            std::cout << (esDerecha ? "┌──1─ " : "└──0─ ");
+        }
+
+        if (!nodo->izquierda && !nodo->derecha) {
+            std::cout << nodo->caracter << std::endl;
+        } else {
+            std::cout << "*" << std::endl;
+        }
+        // Dibuja la izquierda (0)
+        dibujarArbol(nodo->izquierda, prefijo + "        ", false, false);
+    }
+
+
+    // Para imprimir los códigos después:
+    static void imprimirCodigos(Nodo* raiz) {
+        vector<pair<char, string>> codigos;
+        obtenerCodigos(raiz, "", codigos);
+        for (const auto &par : codigos) {
+            cout << par.first << " -> " << par.second << endl;
+        }
     }
 };
 
